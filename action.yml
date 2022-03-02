@@ -59,8 +59,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - if: ${{ inputs.reporter != 'github-pr-review' }}
-      uses: reviewdog/action-setup@v1
+    - uses: reviewdog/action-setup@v1
       with:
         reviewdog_version: v0.14.0
     - run: $GITHUB_ACTION_PATH/script.sh

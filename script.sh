@@ -35,12 +35,12 @@ if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
       -filter-mode="${INPUT_FILTER_MODE}" \
       -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
       -level="${INPUT_LEVEL}" \
-      ${INPUT_REVIEWDOG_FLAGS}
+      "${INPUT_REVIEWDOG_FLAGS}"
 # else run prettier in check mode and report warnings and errors
 else
   
   # shellcheck disable=SC2086
-  "$(npm bin)"/prettier --check ${INPUT_PRETTIER_FLAGS}  2>&1 | sed --regexp-extended 's/(\[warn\].*)$/\1 File is not properly formatted./' \
+  "$(npm bin)"/prettier --check "${INPUT_PRETTIER_FLAGS}"  2>&1 | sed --regexp-extended 's/(\[warn\].*)$/\1 File is not properly formatted./' \
   | reviewdog \
       -efm="%-G[warn] Code style issues found in the above file(s). Forgot to run Prettier%. File is not properly formatted." \
       -efm="[%tarn] %f %m" \
@@ -53,7 +53,7 @@ else
       -filter-mode="${INPUT_FILTER_MODE}" \
       -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
       -level="${INPUT_LEVEL}" \
-      ${INPUT_REVIEWDOG_FLAGS}
+      "${INPUT_REVIEWDOG_FLAGS}"
 fi
 
 exit_code=$?
