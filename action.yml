@@ -79,7 +79,7 @@ runs:
         INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
         INPUT_TOOL_NAME: ${{ inputs.tool_name }}
         INPUT_PRETTIER_FLAGS: ${{ inputs.prettier_flags }}
-    - if: ${{ inputs.reporter == 'github-pr-review' }}
+    - if: ${{ inputs.reporter == 'github-pr-review' && always() }}
       uses: reviewdog/action-suggester@v1
       with:
         github_token: ${{ inputs.github_token }}
