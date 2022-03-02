@@ -6,7 +6,7 @@ on:
   pull_request:
 jobs:
   test-check:
-    name: runner / <linter-name> (github-check)
+    name: runner / prettier (github-check)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,12 +14,27 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-check
+          level: error
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-check
+          fail_on_error: true
+          prettier_flags: passing
+      - id: action_failing_test
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-check
           level: info
-          locale: "US"
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-check
+          fail_on_error: true
+          prettier_flags: failing
 
   test-pr-check:
     if: github.event_name == 'pull_request'
-    name: runner / <linter-name> (github-pr-check)
+    name: runner / prettier (github-pr-check)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,24 +42,47 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-check
-          level: warning
-          locale: "US"
-          workdir: ./testdata/subdir/
+          level: error
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-pr-check
+          fail_on_error: true
+          prettier_flags: passing
+      - id: action_failing_test
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-check
+          level: info
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-pr-check
+          fail_on_error: true
+          prettier_flags: failing
 
   test-pr-review:
     if: github.event_name == 'pull_request'
-    name: runner / <linter-name> (github-pr-review)
+    name: runner / prettier (github-pr-review)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
-        continue-on-error: true
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           level: error
-          locale: "US"
-          reviewdog_flags: -filter-mode=file -fail-on-error
-      - name: check the exit code
-        if: ${{ !success() }}
-        run: echo 'The previous step should fail' && exit 1
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-pr-review
+          fail_on_error: true
+          prettier_flags: passing
+      - id: action_failing_test
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: info
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-pr-review
+          prettier_flags: failing

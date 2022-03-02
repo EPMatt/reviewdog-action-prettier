@@ -1,4 +1,4 @@
-name: labels
+name: Label management
 on:
   push:
     paths:

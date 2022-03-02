@@ -1,4 +1,4 @@
-name: release
+name: Release
 on:
   push:
     branches:
@@ -37,10 +37,16 @@ jobs:
           if_true: ${{ github.ref }}
           if_false: ${{ steps.bumpr.outputs.next_version }}
 
-      # Create release
-      - if: "steps.tag.outputs.value != ''"
+      # Remove tag prefix if present
+      - id: stripped-tag
+        run: echo ::set-output name=value::$(echo ${TAG} | sed 's/refs\/tags\///')
         env:
-          TAG_NAME: ${{ steps.tag.outputs.value }}
+          TAG: ${{ steps.tag.outputs.value }}
+
+      # Create release
+      - if: "steps.stripped-tag.outputs.value != ''"
+        env:
+          TAG_NAME: ${{ steps.stripped-tag.outputs.value }}
           BODY: ${{ steps.bumpr.outputs.message }}
           # This token is provided by Actions, you do not need to create your own token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
