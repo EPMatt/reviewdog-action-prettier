@@ -28,16 +28,15 @@ if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
 # else run prettier in check mode and report warnings and errors
 else
   
-  efm="%-G[warn] Code style issues found in the above file(s). Forgot to run Prettier%.
-[%tarn] %f
-%E%s[%trror] %f: %m (%l:%c)
-%C[error]%r
-%Z[error]%r
-"
-
   # shellcheck disable=SC2086
-  "$(npm bin)"/prettier --check ${INPUT_PRETTIER_FLAGS} \
-    | reviewdog -efm="$efm" \
+  "$(npm bin)"/prettier --check ${INPUT_PRETTIER_FLAGS}  2>&1 | sed --regexp-extended 's/(\[warn\].*)$/\1 File is not properly formatted./' \
+  | reviewdog \
+      -efm="%-G[warn] Code style issues found in the above file(s). Forgot to run Prettier%. File is not properly formatted." \
+      -efm="%-GChecking formatting..." \
+      -efm="%-GAll matched files use Prettier code style!" \
+      -efm="[%tarn] %f %m" \
+      -efm="%E[%trror] %f: %m (%l:%c)" \
+      -efm="%C[error]%r" \
       -name="${INPUT_TOOL_NAME}" \
       -reporter="${INPUT_REPORTER}" \
       -filter-mode="${INPUT_FILTER_MODE}" \
