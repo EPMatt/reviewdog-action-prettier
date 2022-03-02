@@ -15,9 +15,9 @@
     "phone": "+1 (987) 512-3529",
     "address": "466 Rost Place, Wright, Florida, 9281",
     "about": "Id Lorem ullamco mollit Lorem tempor elit do quis incididunt non Lorem cillum. Nulla ullamco eu nostrud mollit irure amet exercitation id eiusmod cupidatat mollit. Enim incididunt qui id aliqua nostrud esse adipisicing qui elit consectetur consequat reprehenderit.\r\n",
-    "registered": "2015-02-01T06:45:22 -01:00",
-    "latitude": -37.33693,
-    "longitude": -133.170685,
+    "registered": " 2015-02-01T06:45:22 -01:00",
+    "latitude": -37.33693
+    "longitude ": -133.170685,
     "tags": ["aliquip", "minim", "enim", "do", "non", "nulla", "duis"],
     "friends": [
       {
