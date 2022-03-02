@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # Move to the provided workdir
@@ -28,12 +28,12 @@ if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
 # else run prettier in check mode and report warnings and errors
 else
   
-  efm="%-G[warn] Code style issues found in the above file(s). Forgot to run Prettier%. 
-  [%tarn] %f
-  %E%s[%trror] %f: %m (%l:%c)
-  %C[error]%r
-  %Z[error]%r
-  "
+  efm="%-G[warn] Code style issues found in the above file(s). Forgot to run Prettier%.
+[%tarn] %f
+%E%s[%trror] %f: %m (%l:%c)
+%C[error]%r
+%Z[error]%r
+"
 
   # shellcheck disable=SC2086
   "$(npm bin)"/prettier --check ${INPUT_PRETTIER_FLAGS} \
