@@ -7,6 +7,7 @@ div.test{
 div.test > div {
     background-color: green;
     font-size: medium;
+    color:blue;
 }
 
 #title {
