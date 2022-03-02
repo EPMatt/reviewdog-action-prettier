@@ -13,5 +13,14 @@
     "name": "bump:patch",
     "color": "ef6bb4",
     "description": "Attach to PR to automatically bump patch version on merge"
+  },
+  {
+    "name": "status - waiting for feedback",
+    "color": "fbca04",
+    "description": "Waiting for additional feedback from people involved in the issue / pull request"
+  },
+  {
+    "name": "stale",
+    "color": "ededed"
   }
 ]
