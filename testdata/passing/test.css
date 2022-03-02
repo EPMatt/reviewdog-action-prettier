@@ -1,5 +1,5 @@
 div.test {
-  background-color: red;
+  background-color    : red;
   color: black;
   display: flex;
 }
