@@ -37,21 +37,22 @@ jobs:
           if_true: ${{ github.ref }}
           if_false: ${{ steps.bumpr.outputs.next_version }}
 
-      # Remove tag prefix if present
       - id: stripped-tag
-        run: echo ::set-output name=value::$(echo ${TAG} | sed 's/refs\/tags\///')
+        run: echo "::set-output name=value::$(echo "${TAG}" | sed 's/refs\/tags\///')"
         env:
           TAG: ${{ steps.tag.outputs.value }}
 
-      # Create release
-      - if: "steps.stripped-tag.outputs.value != ''"
-        env:
-          TAG_NAME: ${{ steps.stripped-tag.outputs.value }}
-          BODY: ${{ steps.bumpr.outputs.message }}
+      # Create release.
+      - uses: shogo82148/actions-create-release@v1
+        if: "steps.tag.outputs.value != ''"
+        with:
           # This token is provided by Actions, you do not need to create your own token
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create "${TAG_NAME}" -t "Release ${TAG_NAME}" --notes "${BODY}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ steps.stripped-tag.outputs.value }}
+          release_name: ${{ steps.stripped-tag.outputs.value }}
+          body: ${{ steps.bumpr.outputs.message }}
+          draft: false
+          prerelease: false
 
   release-check:
     if: github.event.action == 'labeled'
