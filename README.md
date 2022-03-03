@@ -47,9 +47,9 @@ inputs:
     description: |
       Working directory relative to the root directory.
       This is where the action will look for a
-      package.json which declares prettier as a dependency.
+      package.json which declares Prettier as a dependency.
       Please note that this is different from the directory
-      prettier will run on, which is defined in the prettier_flags input.
+      Prettier will run on, which is defined in the prettier_flags input.
       Default is `.`.
     default: '.'
     required: false
@@ -91,11 +91,11 @@ inputs:
   ### Flags for prettier ###
   prettier_flags:
     description: |
-      Flags and args to pass to prettier.
+      Flags and args to pass to Prettier.
       If you override this input, please make sure to append to it the directory
-      which prettier will run on.
+      which Prettier will run on.
       The path provided here is relative to the workdir path, provided in the workdir input.
-      Default is `.`, which makes prettier run on the path provided in the workdir input.
+      Default is `.`, which makes Prettier run on the path provided in the workdir input.
     default: '.'
     required: false
 ```
