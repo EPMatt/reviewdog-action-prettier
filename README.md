@@ -102,7 +102,7 @@ inputs:
 
 ## Usage
 
-This example shows how to configure the action to run on any event occurring on a Pull Request. Reviewdog will report Prettier output messages as warnings by opening a code review on the Pull Request which triggered the workflow.
+This example shows how to configure the action to run on any event occurring on a Pull Request. Reviewdog will report Prettier output messages by opening a code review on the Pull Request which triggered the workflow. Moreover, any formatting changes provided by Prettier will be attached as code suggestions.
 
 ```yaml
 name: reviewdog
