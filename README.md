@@ -22,11 +22,15 @@ Check out the [Sample PR](https://github.com/EPMatt/reviewdog-action-prettier/pu
 
 ### With `github-check` or `github-pr-check` reporters
 
+![reviewdog-action-prettier-github-check](https://user-images.githubusercontent.com/30753195/156574262-ea7f7969-d5c4-4fcc-8727-dcbe08fdb611.png)
+
 If configured with `github-check` and `github-pr-check` reporters, the action will report Prettier errors and warnings about unformatted files.
 
 As an example, see what the action reported for the Sample PR [here](https://github.com/EPMatt/reviewdog-action-prettier/pull/6/checks?check_run_id=5399599766).
 
 ### With `github-pr-review` reporter
+
+![reviewdog-action-prettier-github-pr-review](https://user-images.githubusercontent.com/30753195/156574285-f6fd599d-af5c-470d-b23b-c7daa92d316f.png)
 
 If configured with the `github-pr-review` reporter, the action submits a code review including any errors reported by Prettier; moreover, any formatting changes provided by Prettier are attached as code suggestions.
 
