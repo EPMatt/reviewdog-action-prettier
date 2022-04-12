@@ -7,6 +7,10 @@ updates:
     commit-message:
       prefix: 'github-actions'
     open-pull-requests-limit: 10
-    labels:
-    - dependencies
-    - bump:patch
+  - package-ecosystem: 'npm'
+    directory: 'testdata'
+    schedule:
+      interval: 'daily'
+    commit-message:
+      prefix: 'npm-testdata'
+    open-pull-requests-limit: 10
