@@ -1,16 +1,16 @@
-div.test {
-  background-color: red;
-  color: black;
-  display: flex;
+div.test{
+    background-color: red;
+    color: black;
+    display: flex;
 }
 
 div.test > div {
-  background-color: green;
-  font-size: medium;
+    background-color: green;
+    font-size: medium;
 }
 
 #title {
-  font-weight: 900;
-  font-size: large;
-  font-family: "Times New Roman", Times, serif;
+    font-weight: 900;
+    font-size: large;
+    font-family: 'Times New Roman', Times, serif;
 }
