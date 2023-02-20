@@ -19,6 +19,10 @@ echo "::group::🔄 Echo type npm..."
 echo "$(type npm)"
 echo "::endgroup::"
 
+echo "::group::🔄 Echo npm version..."
+echo "$(npm -v)"
+echo "::endgroup::"
+
 echo "::group::🔄 Echo npm bin..."
 echo "$(npm bin)"
 echo "::endgroup::"
