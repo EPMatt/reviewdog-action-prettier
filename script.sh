@@ -12,7 +12,7 @@ if [ ! -f $(npx prettier) ]; then
 fi
 
 echo "::group::🔄 Listing npm packages..."
-npm list
+npm list || echo "npms listed"
 echo "::endgroup::"
 
 echo "::group::🔄 Echo type npm..."
