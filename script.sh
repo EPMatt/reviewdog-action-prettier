@@ -15,6 +15,14 @@ echo "::group::🔄 Listing npm packages..."
 npm list
 echo "::endgroup::"
 
+echo "::group::🔄 Echo type npm..."
+echo "$(type npm)"
+echo "::endgroup::"
+
+echo "::group::🔄 Echo npm bin..."
+echo "$(npm bin)"
+echo "::endgroup::"
+
 echo "::group::🔄 Listing npm bin..."
 ls -al "$(npm bin)"
 echo "::endgroup::"
