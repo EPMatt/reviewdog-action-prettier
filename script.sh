@@ -11,6 +11,10 @@ if [ ! -f "$(npm bin)"/prettier ]; then
   echo "::endgroup::"
 fi
 
+echo "::group::🔄 Listing npm packages..."
+npm list
+echo "::endgroup::"
+
 if [ ! -f "$(npm bin)"/prettier ]; then
   echo "❌ Unable to locate or install prettier. Did you provide a workdir which contains a valid package.json?"
   exit 1
