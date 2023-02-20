@@ -5,7 +5,7 @@ set -e
 cd "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit 1
 
 # Install prettier
-if [ ! -f "$(npm bin)"/prettier ]; then
+if [ ! -f $(npx prettier) ]; then
   echo "::group::🔄 Running npm install to install prettier..."
   npm install
   echo "::endgroup::"
@@ -23,19 +23,11 @@ echo "::group::🔄 Echo npm version..."
 echo "$(npm -v)"
 echo "::endgroup::"
 
-echo "::group::🔄 Echo npm bin..."
-echo "$(npm bin)"
-echo "::endgroup::"
-
-echo "::group::🔄 Listing npm bin..."
-ls -al "$(npm bin)"
-echo "::endgroup::"
-
-if [ ! -f "$(npm bin)"/prettier ]; then
+if [ ! -f $(npx prettier) ]; then
   echo "❌ Unable to locate or install prettier. Did you provide a workdir which contains a valid package.json?"
   exit 1
 else
-  echo ℹ️ prettier version: "$("$(npm bin)"/prettier --version)"
+  echo ℹ️ prettier version: "$(npx prettier --version)"
 fi
 
 echo "::group::📝 Running prettier with reviewdog 🐶 ..."
@@ -44,7 +36,7 @@ export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
 # if reporter is github-pr-review, run prettier in write mode and report code suggestions
 if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
-  "$(npm bin)"/prettier --write "${INPUT_PRETTIER_FLAGS}" 2>&1 \
+  $(npx prettier) --write "${INPUT_PRETTIER_FLAGS}" 2>&1 \
   | reviewdog \
       -efm="%E[%trror] %f: %m (%l:%c)" \
       -efm="%C[error]%r" \
@@ -60,7 +52,7 @@ if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
 else
   
   # shellcheck disable=SC2086
-  "$(npm bin)"/prettier --check "${INPUT_PRETTIER_FLAGS}"  2>&1 | sed --regexp-extended 's/(\[warn\].*)$/\1 File is not properly formatted./' \
+  $(npx prettier) --check "${INPUT_PRETTIER_FLAGS}"  2>&1 | sed --regexp-extended 's/(\[warn\].*)$/\1 File is not properly formatted./' \
   | reviewdog \
       -efm="%-G[warn] Code style issues found in the above file(s). Forgot to run Prettier%. File is not properly formatted." \
       -efm="[%tarn] %f %m" \
