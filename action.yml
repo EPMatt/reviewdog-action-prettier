@@ -1,4 +1,4 @@
-name: 'Jimmys Run Prettier with reviewdog'
+name: 'Run Prettier with reviewdog'
 description: '🐶 Run Prettier with reviewdog to improve code checking, formatting and review experience for your codebase.'
 author: 'EPMatt'
 inputs:
