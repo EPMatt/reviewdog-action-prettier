@@ -42,7 +42,8 @@ else
   # shellcheck disable=SC2086
   "$(npm root)"/.bin/prettier --check "${INPUT_PRETTIER_FLAGS}"  2>&1 | sed --regexp-extended 's/(\[warn\].*)$/\1 File is not properly formatted./' \
   | reviewdog \
-      -efm="%-G[warn] Code style issues found in the above file(s). Forgot to run Prettier%. File is not properly formatted." \
+      -efm="%-G[warn] Code style issues found in the above file%.%+" \
+      -efm="%-G[warn] Code style issues found in %\d%+ files. %.%+" \
       -efm="[%tarn] %f %m" \
       -efm="%E[%trror] %f: %m (%l:%c)" \
       -efm="%C[error]%r" \
