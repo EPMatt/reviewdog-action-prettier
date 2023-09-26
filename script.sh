@@ -40,10 +40,10 @@ if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
 else
   
   # shellcheck disable=SC2086
-  "$(npm root)"/.bin/prettier --check "${INPUT_PRETTIER_FLAGS}"  2>&1 | sed --regexp-extended 's/(\[warn\].*)$/\1 File is not properly formatted./' \
+  "$(npm root)"/.bin/prettier --check "${INPUT_PRETTIER_FLAGS}"  2>&1 | sed --regexp-extended 's/(\[warn\].*)$/\1 1 File is not properly formatted./' \
   | reviewdog \
       -efm="%-G[warn] Code style issues found in the above file(s). Forgot to run Prettier%. File is not properly formatted." \
-      -efm="[%tarn] %f %m" \
+      -efm="[%tarn] %f %l %m" \
       -efm="%E[%trror] %f: %m (%l:%c)" \
       -efm="%C[error]%r" \
       -efm="%Z[error]%r" \
