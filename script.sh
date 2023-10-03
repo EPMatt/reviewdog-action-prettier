@@ -24,7 +24,8 @@ export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
 # if reporter is github-pr-review, run prettier in write mode and report code suggestions
 if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
-  "$(npm root)"/.bin/prettier --write "${INPUT_PRETTIER_FLAGS}" 2>&1 \
+  # shellcheck disable=SC2086
+  "$(npm root)"/.bin/prettier --write ${INPUT_PRETTIER_FLAGS} 2>&1 \
   | reviewdog \
       -efm="%E[%trror] %f: %m (%l:%c)" \
       -efm="%C[error]%r" \
@@ -40,7 +41,7 @@ if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
 else
   
   # shellcheck disable=SC2086
-  "$(npm root)"/.bin/prettier --check "${INPUT_PRETTIER_FLAGS}"  2>&1 | sed --regexp-extended 's/(\[warn\].*)$/\1 File is not properly formatted./' \
+  "$(npm root)"/.bin/prettier --check ${INPUT_PRETTIER_FLAGS} 2>&1 | sed --regexp-extended 's/(\[warn\].*)$/\1 File is not properly formatted./' \
   | reviewdog \
       -efm="%-G[warn] Code style issues found in the above file(s). Forgot to run Prettier%. File is not properly formatted." \
       -efm="[%tarn] %f %m" \
