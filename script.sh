@@ -7,7 +7,11 @@ cd "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit 1
 # Install prettier
 if [ ! -f "$(npm root)"/.bin/prettier ]; then
   echo "::group::🔄 Running npm install to install prettier..."
-  npm install
+  if [ -f package.json ]; then
+    npm install
+  else
+    npm install prettier
+  fi
   echo "::endgroup::"
 fi
 
