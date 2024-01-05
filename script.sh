@@ -5,10 +5,16 @@ set -e
 cd "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit 1
 
 # Install prettier
-if [ ! -f "$(npm root)"/.bin/prettier ]; then
-  echo "::group::🔄 Running npm install to install prettier..."
-  npm install
-  echo "::endgroup::"
+if [[ ! -f "$(npm root)"/.bin/prettier ]]; then
+	if [[ -f yarn.lock ]]; then
+		echo "::group::🔄 Running yarn install to install prettier..."
+		yarn install
+		echo "::endgroup::"
+	else
+		echo "::group::🔄 Running npm install to install prettier..."
+		npm install
+		echo "::endgroup::"
+	fi
 fi
 
 if [ ! -f "$(npm root)"/.bin/prettier ]; then
