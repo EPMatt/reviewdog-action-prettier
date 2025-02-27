@@ -1,0 +1,14 @@
+{
+    "name": "testdata",
+    "version": "1.0.0",
+    "description": "Test data for the reviewdog-action-prettier GitHub Action.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Matteo Agnoletto",
+    "license": "MIT",
+    "devDependencies": {
+        "prettier": "^3.0.3"
+    }
+}

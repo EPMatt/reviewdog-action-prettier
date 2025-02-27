@@ -1,0 +1,88 @@
+name: Tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  test-check:
+    name: runner / prettier (github-check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-check
+          level: error
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-check
+          fail_on_error: true
+          prettier_flags: passing
+      - id: action_failing_test
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-check
+          level: info
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-check
+          fail_on_error: true
+          prettier_flags: failing
+
+  test-pr-check:
+    if: github.event_name == 'pull_request'
+    name: runner / prettier (github-pr-check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-check
+          level: error
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-pr-check
+          fail_on_error: true
+          prettier_flags: passing
+      - id: action_failing_test
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-check
+          level: info
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-pr-check
+          fail_on_error: true
+          prettier_flags: failing
+
+  test-pr-review:
+    if: github.event_name == 'pull_request'
+    name: runner / prettier (github-pr-review)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: error
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-pr-review
+          fail_on_error: true
+          prettier_flags: passing
+      - id: action_failing_test
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: info
+          filter_mode: nofilter
+          workdir: ./testdata
+          tool_name: prettier-github-pr-review
+          prettier_flags: failing
